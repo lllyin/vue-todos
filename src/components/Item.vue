@@ -1,7 +1,7 @@
 <template>
-  <div class="item">
-    <span>{{todo.content}}</span>
-    <span class="btn delete" @click="onDelete(todo.id)">X</span>
+  <div class="item" @click="onToggle(todo.id)">
+    <span :class="[todo.completed?'complete':'']">{{todo.content}}</span>
+    <span :class="['btn', 'delete']" @click.stop="onDelete(todo.id)">X</span>
   </div>
 </template>
 
@@ -14,6 +14,9 @@ export default {
       required:true
     },
     onDelete:{
+      type:Function
+    },
+    onToggle:{
       type:Function
     }
   }
@@ -39,6 +42,9 @@ export default {
   }
   .delete{
     color: red;
+  }
+  .complete{
+    text-decoration: line-through;
   }
 </style>
 

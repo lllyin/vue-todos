@@ -9,6 +9,7 @@
       :todo="todo"
       :key="todo.id"
       :onDelete="onDelete"
+      :onToggle="toggleTodo"
      />
   </div>
 </template>
@@ -28,7 +29,7 @@ export default {
         {
           id: 1,
           content: "one ",
-          completed: false
+          completed: true
         }
       ]
     };
@@ -43,10 +44,21 @@ export default {
       });
       e.target.value = "";
     },
+
     // 删除一条todo事项
-    onDelete(id) {
-      this.todos = this.todos.filter(val => val.id !== id);
+    onDelete(id,e) {
       console.log("you want delete", id);
+      this.todos = this.todos.filter(val => val.id !== id);
+    },
+    // 处理记录的状态：未完成和已完成
+    toggleTodo(id){
+      console.log('you want to toggle',id,this.todos)
+      this.todos = this.todos.map(val=>{
+        if(val.id === id){
+          val.completed = !val.completed;
+        }
+        return val;
+      })
     }
   }
 };
